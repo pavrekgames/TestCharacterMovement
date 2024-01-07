@@ -1,5 +1,5 @@
 
-namespace TestCharactersMovement
+namespace TestCharactersMovement.CharactersSystem
 {
     public enum CharacterRaces
     {
