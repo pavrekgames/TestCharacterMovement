@@ -7,8 +7,12 @@ namespace TestCharactersMovement.CharactersSystem
 {
     public abstract class Character : MonoBehaviour
     {
-        protected CharacterData characterData;
+        [Header("General")]
+        [SerializeField] protected CharacterData characterData;
+        public CharacterHUD characterHUD;
         public bool isSelected = false;
+
+        [Header("Properties")]
         public float speed;
         public float agility;
         public float resistance;
@@ -33,12 +37,16 @@ namespace TestCharactersMovement.CharactersSystem
 
         public void Select()
         {
+            characterHUD.SetCharacterSelected();
+            isSelected = true;
 
+            Debug.Log(characterData.characterName);
         }
 
         public void Deselect()
         {
-
+            characterHUD.SetCharacterDeselected();
+            isSelected = false;
         } 
 
 

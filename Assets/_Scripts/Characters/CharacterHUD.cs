@@ -19,6 +19,9 @@ namespace TestCharactersMovement.CharactersSystem
         [SerializeField] private Color deselectColor;
         [SerializeField] private Color hoverColor;
 
+        public delegate void CharacterDelegate(Character character);
+        public static CharacterDelegate OnCharacterSelected;
+
         public void OnPointerEnter(PointerEventData eventData)
         {
             if(!isActive)
@@ -31,7 +34,9 @@ namespace TestCharactersMovement.CharactersSystem
         {
             if (!isActive)
             {
-                SelectCharacter();
+                SetCharacterSelected();
+
+                OnCharacterSelected?.Invoke(character);
             }
         }
 
@@ -43,13 +48,13 @@ namespace TestCharactersMovement.CharactersSystem
             }
         }
 
-        public void SelectCharacter()
+        public void SetCharacterSelected()
         {
             characterImage.color = selectColor;
             isActive = true;
         }
 
-        public void DeselectCharacter()
+        public void SetCharacterDeselected()
         {
             characterImage.color = deselectColor;
             isActive = false;

@@ -10,14 +10,24 @@ namespace TestCharactersMovement.CharactersSystem
         [SerializeField] private List<Character> allCharacters = new List<Character>();
         [SerializeField] private Character currentCharacter;
 
+        private void Start ()
+        {
+            CharacterHUD.OnCharacterSelected += SelectCharacter;
+        }
+
         public void SelectCharacter(Character character)
         {
-
+            currentCharacter = character;
+            DeselectAllCharacters();
+            currentCharacter.Select();
         }
 
         private void DeselectAllCharacters()
         {
-
+            foreach (Character character in allCharacters)
+            {
+                character.characterHUD.SetCharacterDeselected();
+            }
         }
 
         private void SetTarget()
