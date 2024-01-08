@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using TestCharactersMovement.CharactersSystem;
+using TestCharactersMovement.SaveLoadSystem;
 using UnityEngine;
 
 namespace TestCharactersMovement.CharactersSystem
 {
-    public abstract class Character : MonoBehaviour
+    public abstract class Character : MonoBehaviour, ISaveLoadData
     {
         [Header("General")]
         [SerializeField] protected CharacterData characterData;
@@ -56,9 +56,34 @@ namespace TestCharactersMovement.CharactersSystem
         {
             characterHUD.SetCharacterDeselected();
             isSelected = false;
-        } 
+        }
 
+        public void Save(GameData gameData)
+        {
+            if (gameData.characters.Contains(this))
+            {
+                gameData.characters.Remove(this);
+            }
 
+            gameData.characters.Add(this);
+
+        }
+
+        public void Load(GameData gameData)
+        {
+
+            Character loadedCharacter = gameData.characters.Find(x => x.characterData == this.characterData);
+
+            speed = loadedCharacter.speed;
+            agility = loadedCharacter.agility;
+            resistance = loadedCharacter.resistance;
+            position = loadedCharacter.position;
+            rotation = loadedCharacter.rotation;
+
+            transform.localPosition = position;
+            transform.localRotation = rotation;
+
+        }
     }
 }
 
