@@ -20,9 +20,18 @@ namespace TestCharactersMovement.CharactersSystem
         public Quaternion rotation;
 
 
+        protected virtual void Start()
+        {
+            SetRandomFactors();
+        }
+
         protected void SetRandomFactors()
         {
+            speed = Random.Range(1, 5);
+            agility = Random.Range(1, 8);
+            resistance = Random.Range(1, 5);
 
+            Debug.Log("RandomFactors");
         }
 
         public virtual void Move(Vector3 target)
