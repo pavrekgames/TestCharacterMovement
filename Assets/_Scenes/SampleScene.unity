@@ -829,13 +829,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.075052805, y: -0, z: -0, w: 0.9971796}
-  m_LocalPosition: {x: -0.62, y: 7.26, z: -19.35}
+  m_LocalRotation: {x: 0.34265324, y: -0, z: -0, w: 0.93946195}
+  m_LocalPosition: {x: -0.62, y: 13.7, z: -14.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 514727700}
-  m_LocalEulerAnglesHint: {x: 8.609, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40.077, y: 0, z: 0}
 --- !u!1 &971524509
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,14 +921,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d6330bfbe6ecb468729a5ba89fb0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: 0391a1189015f154281e07ef9b19ba7a, type: 2}
   characterHUD: {fileID: 1674022758}
   isSelected: 0
+  characterData: {fileID: 11400000, guid: 0391a1189015f154281e07ef9b19ba7a, type: 2}
   speed: 0
   agility: 0
   resistance: 0
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
+  pathfinding: {fileID: 0}
+  path: []
+  targetIndex: 0
+  target: {fileID: 0}
+  characterProperties:
+    characterData: {fileID: 11400000, guid: 0391a1189015f154281e07ef9b19ba7a, type: 2}
+    speed: 0
+    agility: 0
+    resistance: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!65 &1003038427
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1241,14 +1252,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c16b03e6be727a43bf91ad5f544cdef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: 3a31081750c1fa24998ac86aca9986bf, type: 2}
   characterHUD: {fileID: 8052491283757397065}
   isSelected: 0
+  characterData: {fileID: 11400000, guid: 3a31081750c1fa24998ac86aca9986bf, type: 2}
   speed: 0
   agility: 0
   resistance: 0
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
+  pathfinding: {fileID: 0}
+  path: []
+  targetIndex: 0
+  target: {fileID: 0}
+  characterProperties:
+    characterData: {fileID: 11400000, guid: 3a31081750c1fa24998ac86aca9986bf, type: 2}
+    speed: 0
+    agility: 0
+    resistance: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1193477534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,14 +1591,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0345864a965c4246aa077fab970e6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: d68f325c0573289469dd8c98adadd8a9, type: 2}
   characterHUD: {fileID: 1496529050}
   isSelected: 0
+  characterData: {fileID: 11400000, guid: d68f325c0573289469dd8c98adadd8a9, type: 2}
   speed: 0
   agility: 0
   resistance: 0
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 0}
+  pathfinding: {fileID: 0}
+  path: []
+  targetIndex: 0
+  target: {fileID: 0}
+  characterProperties:
+    characterData: {fileID: 11400000, guid: d68f325c0573289469dd8c98adadd8a9, type: 2}
+    speed: 0
+    agility: 0
+    resistance: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &1338277590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2096,13 +2129,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 1243096182}
+  displayGridGizmos: 1
   startPosition: {fileID: 1150090483}
-  wallMask:
+  unwalkableMask:
     serializedVersion: 2
     m_Bits: 64
-  gridWorldSize: {x: 30, y: 30}
+  gridWorldSize: {x: 22, y: 20}
   nodeRadius: 0.5
-  distanceBetweenNodes: 0.8
+  distanceBetweenNodes: 0
   finalPath: []
 --- !u!114 &1843534986
 MonoBehaviour:
@@ -2116,6 +2150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3f427a45b903f40a63f8ed8835f333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapGrid: {fileID: 0}
+  pathSuccess: 0
   startPosition: {fileID: 1150090483}
   targetPosition: {fileID: 540441658}
 --- !u!1 &1907211195

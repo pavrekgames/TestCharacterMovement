@@ -2,107 +2,81 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TestCharactersMovement.Pathfinding
+namespace TestCharactersMovement.PathfindingSystem
 {
     public class MapGrid : MonoBehaviour
     {
 
         [SerializeField] private Transform map;
 
-        public Transform startPosition; 
-        public LayerMask wallMask; 
-        public Vector2 gridWorldSize; 
-        public float nodeRadius; 
+        public bool displayGridGizmos;
+        public Transform startPosition;
+        public LayerMask unwalkableMask;
+        public Vector2 gridWorldSize;
+        public float nodeRadius;
         public float distanceBetweenNodes;
 
-        Node[,] nodesArray; 
-        public List<Node> finalPath; 
+        Node[,] grid;
+        public List<Node> finalPath;
 
-        float nodeDiameter; 
-        int gridSizeX, gridSizeY; 
+        float nodeDiameter;
+        int gridSizeX, gridSizeY;
 
 
-        private void Start() 
+        private void Start()
         {
-            nodeDiameter = nodeRadius * 2; 
-            gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter); 
-            gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter); 
-            CreateGrid(); 
+            nodeDiameter = nodeRadius * 2;
+            gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
+            gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+            CreateGrid();
+        }
+
+        public int MaxSize
+        {
+            get
+            {
+                return gridSizeX * gridSizeY;
+            }
         }
 
         private void CreateGrid()
         {
-            nodesArray = new Node[gridSizeX, gridSizeY]; 
-            Vector3 bottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
+            grid = new Node[gridSizeX, gridSizeY];
+            Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
 
-            for (int x = 0; x < gridSizeX; x++) 
+            for (int x = 0; x < gridSizeX; x++)
             {
-                for (int y = 0; y < gridSizeY; y++) 
+                for (int y = 0; y < gridSizeY; y++)
                 {
-                    Vector3 worldPoint = bottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius); 
-                    bool Wall = true; 
-
-                    if (Physics.CheckSphere(worldPoint, nodeRadius, wallMask))
-                    {
-                        Wall = false;
-                    }
-
-                    nodesArray[x, y] = new Node(Wall, worldPoint, x, y);
+                    Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
+                    bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
+                    grid[x, y] = new Node(walkable, worldPoint, x, y);
                 }
             }
         }
 
-        public List<Node> GetNeighboringNodes(Node neighborNode)
+        public List<Node> GetNeighbours(Node node)
         {
-            List<Node> neighborList = new List<Node>(); 
-            int check_X; 
-            int check_Y; 
+            List<Node> neighbours = new List<Node>();
 
-            check_X = neighborNode.grid_X + 1;
-            check_Y = neighborNode.grid_Y;
-
-            if (check_X >= 0 && check_X < gridSizeX) 
+            for (int x = -1; x <= 1; x++)
             {
-                if (check_Y >= 0 && check_Y < gridSizeY) 
+                for (int y = -1; y <= 1; y++)
                 {
-                    neighborList.Add(nodesArray[check_X, check_Y]); 
-                }
-            }
-            
-            check_X = neighborNode.grid_X - 1;
-            check_Y = neighborNode.grid_Y;
+                    if (x == 0 && y == 0)
+                        continue;
 
-            if (check_X >= 0 && check_X < gridSizeX) 
-            {
-                if (check_Y >= 0 && check_Y < gridSizeY) 
-                {
-                    neighborList.Add(nodesArray[check_X, check_Y]); 
-                }
-            }
-            
-            check_X = neighborNode.grid_X;
-            check_Y = neighborNode.grid_Y + 1;
+                    int checkX = node.grid_X + x;
+                    int checkY = node.grid_Y + y;
 
-            if (check_X >= 0 && check_X < gridSizeX) 
-            {
-                if (check_Y >= 0 && check_Y < gridSizeY) 
-                {
-                    neighborList.Add(nodesArray[check_X, check_Y]); 
-                }
-            }
-            
-            check_X = neighborNode.grid_X;
-            check_Y = neighborNode.grid_Y - 1;
-
-            if (check_X >= 0 && check_X < gridSizeX) 
-            {
-                if (check_Y >= 0 && check_Y < gridSizeY) 
-                {
-                    neighborList.Add(nodesArray[check_X, check_Y]); 
+                    if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                    {
+                        neighbours.Add(grid[checkX, checkY]);
+                    }
                 }
             }
 
-            return neighborList;
+            return neighbours;
         }
 
         public Node NodeFromWorldPoint(Vector3 worldPos)
@@ -116,44 +90,27 @@ namespace TestCharactersMovement.Pathfinding
             int intPos_X = Mathf.RoundToInt((gridSizeX - 1) * pos_X);
             int intPos_Y = Mathf.RoundToInt((gridSizeY - 1) * pos_Y);
 
-            return nodesArray[intPos_X, intPos_Y];
+            return grid[intPos_X, intPos_Y];
         }
 
 
         private void OnDrawGizmos()
         {
 
-            Gizmos.DrawWireCube(map.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y)); 
+            Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
 
-            if (nodesArray != null) 
+            if (grid != null && displayGridGizmos)
             {
-                foreach (Node node in nodesArray) 
+                foreach (Node node in grid)
                 {
-                    if (node.isWall) 
-                    {
-                        Gizmos.color = Color.white; 
-                    }
-                    else
-                    {
-                        Gizmos.color = Color.yellow; 
-                    }
+                    Gizmos.color = (node.isWalkable) ? Color.white : Color.yellow;
+                    //Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter - .1f));
 
-
-                    if (finalPath != null) 
-                    {
-                        if (finalPath.Contains(node)) 
-                        {
-                            Gizmos.color = Color.red; 
-                        }
-
-                    }
-
-
-                    Gizmos.DrawCube(node.position, Vector3.one * (nodeDiameter - distanceBetweenNodes)); 
+                    Gizmos.DrawCube(node.worldPosition, new Vector3(1, 0.1f, 1));
                 }
             }
-        }
 
+        }
 
     }
 }

@@ -54,15 +54,19 @@ namespace TestCharactersMovement.CharactersSystem
 
         private void SetTarget()
         {
-            screenPosition = Input.mousePosition;
-
-            Ray ray = mainCamera.ScreenPointToRay(screenPosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, hitDistance))
+            if(currentCharacter != null)
             {
-                target = hitInfo.point;
-                currentCharacter.transform.position = target;
-            }
+                screenPosition = Input.mousePosition;
+
+                Ray ray = mainCamera.ScreenPointToRay(screenPosition);
+
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, hitDistance))
+                {
+                    target = hitInfo.point;
+                    //currentCharacter.transform.position = target;
+                    currentCharacter.Move(target);
+                }
+            } 
         }
 
         private void MoveCharacter()
