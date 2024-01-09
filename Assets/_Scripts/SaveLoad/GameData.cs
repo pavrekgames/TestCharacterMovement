@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TestCharactersMovement.CharactersSystem;
 using UnityEngine;
+using static TestCharactersMovement.CharactersSystem.Character;
 
 namespace TestCharactersMovement.SaveLoadSystem
 {
@@ -9,12 +10,12 @@ namespace TestCharactersMovement.SaveLoadSystem
     public class GameData
     {
 
-        public List<Character> characters;
+        public List<CharacterProperties> characters;
 
         public GameData()
         {
            
-            characters = new List<Character>();
+            characters = new List<CharacterProperties>();
 
         }
 

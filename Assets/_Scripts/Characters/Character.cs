@@ -5,20 +5,34 @@ using UnityEngine;
 
 namespace TestCharactersMovement.CharactersSystem
 {
+    
     public abstract class Character : MonoBehaviour, ISaveLoadData
     {
         [Header("General")]
-        [SerializeField] protected CharacterData characterData;
         public CharacterHUD characterHUD;
         public bool isSelected = false;
 
-        [Header("Properties")]
+        [Header("Character Properties")]
+        public CharacterData characterData;
         public float speed;
         public float agility;
         public float resistance;
         public Vector3 position;
         public Quaternion rotation;
 
+        [Header("Savings Data")]
+        [HideInInspector] public CharacterProperties characterProperties;
+
+        [System.Serializable]
+        public class CharacterProperties
+        {
+            public CharacterData characterData;
+            public float speed;
+            public float agility;
+            public float resistance;
+            public Vector3 position;
+            public Quaternion rotation;
+        }
 
         protected virtual void Start()
         {
@@ -49,7 +63,7 @@ namespace TestCharactersMovement.CharactersSystem
             characterHUD.SetCharacterSelected();
             isSelected = true;
 
-            Debug.Log(characterData.characterName);
+            Debug.Log(characterProperties.characterData.characterName);
         }
 
         public void Deselect()
@@ -60,19 +74,32 @@ namespace TestCharactersMovement.CharactersSystem
 
         public void Save(GameData gameData)
         {
-            if (gameData.characters.Contains(this))
+            characterProperties.speed = speed;
+            characterProperties.agility = agility;
+            characterProperties.resistance = resistance;
+            characterProperties.position = transform.localPosition;
+            characterProperties.rotation = transform.localRotation;
+
+            CharacterProperties savingCharacter = gameData.characters.Find(x => x.characterData.characterName == characterProperties.characterData.characterName);
+
+            if (savingCharacter != null)
             {
-                gameData.characters.Remove(this);
+                if (savingCharacter.characterData.characterName == characterProperties.characterData.characterName)
+                {
+                    gameData.characters.Remove(savingCharacter);
+                    gameData.characters.Add(characterProperties);
+                }
             }
-
-            gameData.characters.Add(this);
-
+            else
+            {
+                gameData.characters.Add(characterProperties);
+            }
         }
 
         public void Load(GameData gameData)
         {
 
-            Character loadedCharacter = gameData.characters.Find(x => x.characterData == this.characterData);
+            CharacterProperties loadedCharacter = gameData.characters.Find(x => x.characterData.characterName == characterProperties.characterData.characterName);
 
             speed = loadedCharacter.speed;
             agility = loadedCharacter.agility;
@@ -80,8 +107,8 @@ namespace TestCharactersMovement.CharactersSystem
             position = loadedCharacter.position;
             rotation = loadedCharacter.rotation;
 
-            transform.localPosition = position;
-            transform.localRotation = rotation;
+            transform.localPosition = loadedCharacter.position;
+            transform.localRotation = loadedCharacter.rotation;
 
         }
     }
