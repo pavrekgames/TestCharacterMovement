@@ -48,7 +48,7 @@ namespace TestCharactersMovement.CharactersSystem
         {
             foreach (Character character in allCharacters)
             {
-                character.characterHUD.SetCharacterDeselected();
+                character.Deselect();
             }
         }
 

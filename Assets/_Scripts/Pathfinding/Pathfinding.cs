@@ -30,11 +30,13 @@ namespace TestCharactersMovement.PathfindingSystem
         public void FindPath(Vector3 startPos, Vector3 targetPos)
         {
             StartCoroutine(FindPath_IE(startPos, targetPos));
+            //StartCoroutine(FindPath_IE(startPosition.position, targetPosition.position));
         }
 
         private IEnumerator FindPath_IE(Vector3 startPos, Vector3 targetPos)
         {
             Vector3[] waypoints = new Vector3[0];
+            pathSuccess = false;
             //bool pathSuccess = false;
 
             Node startNode = mapGrid.NodeFromWorldPoint(startPos);

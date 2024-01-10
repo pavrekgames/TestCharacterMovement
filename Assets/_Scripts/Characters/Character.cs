@@ -67,7 +67,7 @@ namespace TestCharactersMovement.CharactersSystem
 
         public virtual void Move(Vector3 target)
         {
-            pathfinding.FindPath(transform.localPosition, target);
+            pathfinding.FindPath(transform.position, target);
         }
 
         public virtual void Follow()
@@ -107,8 +107,11 @@ namespace TestCharactersMovement.CharactersSystem
                     currentWaypoint = path[targetIndex];
                 }
 
-                transform.localPosition = Vector3.MoveTowards(transform.localPosition, currentWaypoint, speed * Time.deltaTime);
-                transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(currentWaypoint - transform.localPosition), agility * Time.deltaTime);
+                //transform.localPosition = Vector3.MoveTowards(transform.localPosition, currentWaypoint, speed * Time.deltaTime);
+                //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(currentWaypoint - transform.localPosition), agility * Time.deltaTime);
+
+                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(currentWaypoint - transform.position), agility * Time.deltaTime);
                 yield return null;
             }
         }

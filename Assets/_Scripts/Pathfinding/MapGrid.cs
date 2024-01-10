@@ -91,6 +91,7 @@ namespace TestCharactersMovement.PathfindingSystem
             int intPos_Y = Mathf.RoundToInt((gridSizeY - 1) * pos_Y);
 
             return grid[intPos_X, intPos_Y];
+            //return grid[worldPos.x, intPos_Y];
         }
 
 
