@@ -10,6 +10,7 @@ namespace TestCharactersMovement.CharactersSystem
     public abstract class Character : MonoBehaviour, ISaveLoadData
     {
         [Header("General")]
+        [SerializeField] private Animator animator;
         public CharacterHUD characterHUD;
         public bool isSelected = false;
 
@@ -43,6 +44,7 @@ namespace TestCharactersMovement.CharactersSystem
 
         protected virtual void Initialize()
         {
+            animator = GetComponent<Animator>();
             pathfinding = FindFirstObjectByType<Pathfinding>();
         }
 
@@ -99,6 +101,8 @@ namespace TestCharactersMovement.CharactersSystem
 
             while (transform.position != path[path.Length - 1])
             {
+                FollowAnimation(true);
+
                 if (transform.position == currentWaypoint)
                 {
                     targetIndex++;
@@ -115,6 +119,9 @@ namespace TestCharactersMovement.CharactersSystem
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(currentWaypoint - transform.position), agility * Time.deltaTime);
                 yield return null;
             }
+
+            FollowAnimation(false);
+
         }
 
         public void OnDrawGizmos()
@@ -150,6 +157,15 @@ namespace TestCharactersMovement.CharactersSystem
         {
             characterHUD.SetCharacterDeselected();
             isSelected = false;
+        }
+
+        #endregion
+
+        #region Animations
+
+        private void FollowAnimation(bool isFollowing)
+        {
+            animator.SetBool("IsFollowing", isFollowing);
         }
 
         #endregion
