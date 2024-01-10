@@ -7,17 +7,13 @@ namespace TestCharactersMovement.PathfindingSystem
     public class MapGrid : MonoBehaviour
     {
 
-        [SerializeField] private Transform map;
-
         public bool displayGridGizmos;
-        public Transform startPosition;
         public LayerMask unwalkableMask;
         public Vector2 gridWorldSize;
         public float nodeRadius;
         public float distanceBetweenNodes;
 
         Node[,] grid;
-        public List<Node> finalPath;
 
         float nodeDiameter;
         int gridSizeX, gridSizeY;
@@ -76,7 +72,6 @@ namespace TestCharactersMovement.PathfindingSystem
             }
 
             return neighbours;
-
         }
 
         public Node NodeFromWorldPoint(Vector3 worldPos)
@@ -91,12 +86,10 @@ namespace TestCharactersMovement.PathfindingSystem
             int intPos_Y = Mathf.RoundToInt((gridSizeY) * pos_Y);
 
             return grid[intPos_X + 1, intPos_Y + 1];
-
         }
 
         private void OnDrawGizmos()
         {
-
             Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
 
             if (grid != null && displayGridGizmos)
@@ -107,7 +100,6 @@ namespace TestCharactersMovement.PathfindingSystem
                     Gizmos.DrawCube(node.worldPosition, new Vector3(1, 0.1f, 1));
                 }
             }
-
         }
 
     }

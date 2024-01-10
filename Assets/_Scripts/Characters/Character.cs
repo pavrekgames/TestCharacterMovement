@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace TestCharactersMovement.CharactersSystem
 {
-
     public abstract class Character : MonoBehaviour, ISaveLoadData
     {
         [Header("General")]
@@ -62,37 +61,39 @@ namespace TestCharactersMovement.CharactersSystem
             resistance = Random.Range(1, 5);
         }
 
-        public virtual void Move(Vector3 target)
+        public virtual void FindPathToTarget(Vector3 target)
         {
             pathfinding.FindPath(transform.position, target);
         }
 
-        public virtual void Follow()
-        {
-
-        }
-
-        public void OnPathFound(Vector3[] newPath, bool isPathSuccessful)
+        private void OnPathFound(Vector3[] newPath, bool isPathSuccessful)
         {
             if (isPathSuccessful)
             {
                 path = newPath;
                 targetIndex = 0;
 
-                if (isSelected)
-                {
-                    if (FollowPath_IE != null)
-                    {
-                        StopCoroutine(FollowPath_IE);
-                    }
-
-                    FollowPath_IE = StartCoroutine(FollowPath());
-                }
+                Move();
             }
+        }
+
+        private void Move()
+        {
+            if (FollowPath_IE != null)
+            {
+                StopCoroutine(FollowPath_IE);
+            }
+
+            FollowPath_IE = StartCoroutine(FollowPath());
         }
 
         private IEnumerator FollowPath()
         {
+            if (!isSelected)
+            {
+                yield return new WaitForSeconds(2);
+            }
+
             Vector3 currentWaypoint = path[0];
             targetIndex = 0;
 
@@ -101,10 +102,12 @@ namespace TestCharactersMovement.CharactersSystem
                 if (transform.position == currentWaypoint)
                 {
                     targetIndex++;
+
                     if (targetIndex >= path.Length)
                     {
                         yield break;
                     }
+
                     currentWaypoint = path[targetIndex];
                 }
 
@@ -121,7 +124,7 @@ namespace TestCharactersMovement.CharactersSystem
                 for (int i = targetIndex; i < path.Length; i++)
                 {
                     Gizmos.color = Color.black;
-                    Gizmos.DrawCube(path[i], Vector3.one);
+                    //Gizmos.DrawCube(path[i], Vector3.one);
 
                     if (i == targetIndex)
                     {
@@ -141,7 +144,6 @@ namespace TestCharactersMovement.CharactersSystem
         {
             characterHUD.SetCharacterSelected();
             isSelected = true;
-            Debug.Log(characterProperties.characterData.characterName);
         }
 
         public void Deselect()

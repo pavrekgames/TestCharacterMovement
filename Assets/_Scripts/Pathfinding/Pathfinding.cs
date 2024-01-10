@@ -7,12 +7,8 @@ namespace TestCharactersMovement.PathfindingSystem
 {
     public class Pathfinding : MonoBehaviour
     {
-
         [SerializeField] private MapGrid mapGrid;
         public bool pathSuccess = false;
-
-        public Transform startPosition;
-        public Transform targetPosition;
 
         public delegate void PathDelegate(Vector3[] wayPoints, bool isPathSuccess);
         public static PathDelegate OnPathFound;
@@ -29,7 +25,6 @@ namespace TestCharactersMovement.PathfindingSystem
 
         private IEnumerator FindPath_IE(Vector3 startPos, Vector3 targetPos)
         {
-
             Vector3[] waypoints = new Vector3[0];
             pathSuccess = false;
 
@@ -96,8 +91,8 @@ namespace TestCharactersMovement.PathfindingSystem
             }
             Vector3[] waypoints = SimplifyPath(path);
             Array.Reverse(waypoints);
-            return waypoints;
 
+            return waypoints;
         }
 
         private Vector3[] SimplifyPath(List<Node> path)
@@ -115,6 +110,7 @@ namespace TestCharactersMovement.PathfindingSystem
                 }
                 directionOld = directionNew;
             }
+
             return waypoints.ToArray();
         }
 

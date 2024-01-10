@@ -277,7 +277,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a04efba47ca84574688cf8f6943c5a3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -631,7 +631,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a04efba47ca84574688cf8f6943c5a3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1446,7 +1446,6 @@ MonoBehaviour:
   - {fileID: 1003038425}
   - {fileID: 1325185025}
   currentCharacter: {fileID: 0}
-  targetPointer: {fileID: 1318625848}
   mainCamera: {fileID: 0}
   screenPosition: {x: 0, y: 0, z: 0}
   target: {x: 0, y: 0, z: 0}
@@ -1652,7 +1651,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.1760287, y: 1, z: 1.9670671}
+  m_LocalScale: {x: 3.5776088, y: 1, z: 1.9670671}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 514727700}
@@ -1808,7 +1807,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a04efba47ca84574688cf8f6943c5a3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2260,7 +2259,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a04efba47ca84574688cf8f6943c5a3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2367,7 +2366,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a04efba47ca84574688cf8f6943c5a3f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2666,16 +2665,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d81e4daad907732428e1712cb1abb48e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 1243096182}
   displayGridGizmos: 0
-  startPosition: {fileID: 1150090483}
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 64
-  gridWorldSize: {x: 22, y: 22}
+  gridWorldSize: {x: 38.3, y: 22}
   nodeRadius: 0.5
   distanceBetweenNodes: 0
-  finalPath: []
 --- !u!114 &1843534986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2690,8 +2686,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapGrid: {fileID: 0}
   pathSuccess: 0
-  startPosition: {fileID: 1150090483}
-  targetPosition: {fileID: 1318625848}
 --- !u!1 &1907211195
 GameObject:
   m_ObjectHideFlags: 0
