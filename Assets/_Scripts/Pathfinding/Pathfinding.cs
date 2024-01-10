@@ -8,40 +8,33 @@ namespace TestCharactersMovement.PathfindingSystem
     public class Pathfinding : MonoBehaviour
     {
 
-        [SerializeField] private MapGrid mapGrid; 
+        [SerializeField] private MapGrid mapGrid;
         public bool pathSuccess = false;
 
-        public Transform startPosition; 
+        public Transform startPosition;
         public Transform targetPosition;
 
         public delegate void PathDelegate(Vector3[] wayPoints, bool isPathSuccess);
         public static PathDelegate OnPathFound;
 
-        private void Awake() 
+        private void Awake()
         {
-            mapGrid = FindFirstObjectByType<MapGrid>(); 
-        }
-
-        private void Update() 
-        {
-            //FindPath(startPosition.position, targetPosition.position); 
+            mapGrid = FindFirstObjectByType<MapGrid>();
         }
 
         public void FindPath(Vector3 startPos, Vector3 targetPos)
         {
             StartCoroutine(FindPath_IE(startPos, targetPos));
-            //StartCoroutine(FindPath_IE(startPosition.position, targetPosition.position));
         }
 
         private IEnumerator FindPath_IE(Vector3 startPos, Vector3 targetPos)
         {
+
             Vector3[] waypoints = new Vector3[0];
             pathSuccess = false;
-            //bool pathSuccess = false;
 
             Node startNode = mapGrid.NodeFromWorldPoint(startPos);
             Node targetNode = mapGrid.NodeFromWorldPoint(targetPos);
-
 
             if (startNode.isWalkable && targetNode.isWalkable)
             {
@@ -89,24 +82,6 @@ namespace TestCharactersMovement.PathfindingSystem
             }
 
             OnPathFound?.Invoke(waypoints, pathSuccess);
-            //requestManager.FinishedProcessingPath(waypoints, pathSuccess);
-        }
-
-        private void GetFinalPath(Node startNode, Node endNode)
-        {
-            List<Node> finalPath = new List<Node>(); 
-            Node currentNode = endNode; 
-
-            while (currentNode != startNode) 
-            {
-                finalPath.Add(currentNode); 
-                currentNode = currentNode.parentNode; 
-            }
-
-            finalPath.Reverse(); 
-
-            mapGrid.finalPath = finalPath; 
-
         }
 
         private Vector3[] RetracePath(Node startNode, Node endNode)
@@ -135,7 +110,8 @@ namespace TestCharactersMovement.PathfindingSystem
                 Vector2 directionNew = new Vector2(path[i - 1].grid_X - path[i].grid_X, path[i - 1].grid_Y - path[i].grid_Y);
                 if (directionNew != directionOld)
                 {
-                    waypoints.Add(path[i].worldPosition);
+                    waypoints.Add(path[i - 1].worldPosition);
+                    //waypoints.Add(path[i].worldPosition);
                 }
                 directionOld = directionNew;
             }
@@ -151,7 +127,6 @@ namespace TestCharactersMovement.PathfindingSystem
                 return 14 * dstY + 10 * (dstX - dstY);
             return 14 * dstX + 10 * (dstY - dstX);
         }
-
 
     }
 }

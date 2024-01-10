@@ -26,8 +26,7 @@ namespace TestCharactersMovement.CharactersSystem
         [SerializeField] private Pathfinding pathfinding;
         [SerializeField] private Vector3[] path;
         [SerializeField] private int targetIndex;
-        public Transform target;
-        
+        private Coroutine FollowPath_IE;
 
         [Header("Savings Data")]
         [HideInInspector] public CharacterProperties characterProperties;
@@ -58,11 +57,9 @@ namespace TestCharactersMovement.CharactersSystem
 
         protected void SetRandomFactors()
         {
-            speed = Random.Range(1, 3);
-            agility = Random.Range(1, 4);
+            speed = Random.Range(3, 7);
+            agility = Random.Range(3, 7);
             resistance = Random.Range(1, 5);
-
-            Debug.Log("RandomFactors");
         }
 
         public virtual void Move(Vector3 target)
@@ -84,18 +81,22 @@ namespace TestCharactersMovement.CharactersSystem
 
                 if (isSelected)
                 {
-                    StopCoroutine(FollowPath());
-                    StartCoroutine(FollowPath());
+                    if (FollowPath_IE != null)
+                    {
+                        StopCoroutine(FollowPath_IE);
+                    }
+
+                    FollowPath_IE = StartCoroutine(FollowPath());
                 }
-                
             }
         }
 
         private IEnumerator FollowPath()
         {
             Vector3 currentWaypoint = path[0];
+            targetIndex = 0;
 
-            while (true)
+            while (transform.position != path[path.Length - 1])
             {
                 if (transform.position == currentWaypoint)
                 {
@@ -106,9 +107,6 @@ namespace TestCharactersMovement.CharactersSystem
                     }
                     currentWaypoint = path[targetIndex];
                 }
-
-                //transform.localPosition = Vector3.MoveTowards(transform.localPosition, currentWaypoint, speed * Time.deltaTime);
-                //transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(currentWaypoint - transform.localPosition), agility * Time.deltaTime);
 
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(currentWaypoint - transform.position), agility * Time.deltaTime);

@@ -22,7 +22,6 @@ namespace TestCharactersMovement.PathfindingSystem
         float nodeDiameter;
         int gridSizeX, gridSizeY;
 
-
         private void Start()
         {
             nodeDiameter = nodeRadius * 2;
@@ -77,6 +76,7 @@ namespace TestCharactersMovement.PathfindingSystem
             }
 
             return neighbours;
+
         }
 
         public Node NodeFromWorldPoint(Vector3 worldPos)
@@ -87,13 +87,12 @@ namespace TestCharactersMovement.PathfindingSystem
             pos_X = Mathf.Clamp01(pos_X);
             pos_Y = Mathf.Clamp01(pos_Y);
 
-            int intPos_X = Mathf.RoundToInt((gridSizeX - 1) * pos_X);
-            int intPos_Y = Mathf.RoundToInt((gridSizeY - 1) * pos_Y);
+            int intPos_X = Mathf.RoundToInt((gridSizeX) * pos_X);
+            int intPos_Y = Mathf.RoundToInt((gridSizeY) * pos_Y);
 
-            return grid[intPos_X, intPos_Y];
-            //return grid[worldPos.x, intPos_Y];
+            return grid[intPos_X + 1, intPos_Y + 1];
+
         }
-
 
         private void OnDrawGizmos()
         {
@@ -105,8 +104,6 @@ namespace TestCharactersMovement.PathfindingSystem
                 foreach (Node node in grid)
                 {
                     Gizmos.color = (node.isWalkable) ? Color.white : Color.yellow;
-                    //Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter - .1f));
-
                     Gizmos.DrawCube(node.worldPosition, new Vector3(1, 0.1f, 1));
                 }
             }

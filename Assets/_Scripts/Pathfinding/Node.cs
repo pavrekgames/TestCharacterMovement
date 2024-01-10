@@ -53,7 +53,6 @@ namespace TestCharactersMovement.PathfindingSystem
             return -compare;
         }
 
-
     }
 }
 

@@ -9,6 +9,7 @@ namespace TestCharactersMovement.CharactersSystem
         [Header("Characters")]
         [SerializeField] private List<Character> allCharacters = new List<Character>();
         [SerializeField] private Character currentCharacter;
+        [SerializeField] private Transform targetPointer;
 
         [Header("Character Target")]
         [SerializeField] private Camera mainCamera;
@@ -60,10 +61,12 @@ namespace TestCharactersMovement.CharactersSystem
 
                 Ray ray = mainCamera.ScreenPointToRay(screenPosition);
 
-                if (Physics.Raycast(ray, out RaycastHit hitInfo, hitDistance))
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, layerMask))
                 {
+                    //target = new Vector3(hitInfo.point.x, 4.335978f, hitInfo.point.z);
                     target = hitInfo.point;
                     //currentCharacter.transform.position = target;
+                    targetPointer.transform.position = target;
                     currentCharacter.Move(target);
                 }
             } 
