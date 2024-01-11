@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TestCharactersMovement.Addressables;
 using UnityEngine;
 
 namespace TestCharactersMovement.PathfindingSystem
@@ -23,7 +24,9 @@ namespace TestCharactersMovement.PathfindingSystem
             nodeDiameter = nodeRadius * 2;
             gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
             gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-            CreateGrid();
+
+            SpawnAddressableAssets.OnObjectsSpawned += CreateGrid;
+            //CreateGrid();
         }
 
         public int MaxSize

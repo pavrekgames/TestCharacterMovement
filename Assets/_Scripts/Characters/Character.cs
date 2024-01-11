@@ -46,6 +46,7 @@ namespace TestCharactersMovement.CharactersSystem
         {
             animator = GetComponent<Animator>();
             pathfinding = FindFirstObjectByType<Pathfinding>();
+            characterProperties.characterData = characterData;
         }
 
         protected virtual void Start()

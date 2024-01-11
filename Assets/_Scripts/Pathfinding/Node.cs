@@ -19,9 +19,9 @@ namespace TestCharactersMovement.PathfindingSystem
         public int hCost;
         int heapIndex;
 
-        public Node(bool isWall, Vector3 worldPosition, int grid_X, int grid_Y) 
+        public Node(bool isWalkable, Vector3 worldPosition, int grid_X, int grid_Y) 
         {
-            this.isWalkable = isWall; 
+            this.isWalkable = isWalkable; 
             this.worldPosition = worldPosition; 
             this.grid_X = grid_X; 
             this.grid_Y = grid_Y; 
