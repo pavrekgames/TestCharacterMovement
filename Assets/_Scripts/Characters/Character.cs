@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using TestCharactersMovement.PathfindingSystem;
 using TestCharactersMovement.SaveLoadSystem;
 using UnityEngine;
@@ -64,6 +63,8 @@ namespace TestCharactersMovement.CharactersSystem
             resistance = Random.Range(1, 5);
         }
 
+        #region Following Path
+
         public virtual void FindPathToTarget(Vector3 target)
         {
             pathfinding.FindPath(transform.position, target);
@@ -125,6 +126,10 @@ namespace TestCharactersMovement.CharactersSystem
 
         }
 
+        #endregion
+
+#if UNITY_EDITOR
+
         public void OnDrawGizmos()
         {
             if (path != null)
@@ -145,6 +150,8 @@ namespace TestCharactersMovement.CharactersSystem
                 }
             }
         }
+
+#endif
 
         #region Selecting
 

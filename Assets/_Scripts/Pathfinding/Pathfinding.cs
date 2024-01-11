@@ -106,7 +106,6 @@ namespace TestCharactersMovement.PathfindingSystem
                 if (directionNew != directionOld)
                 {
                     waypoints.Add(path[i - 1].worldPosition);
-                    //waypoints.Add(path[i].worldPosition);
                 }
                 directionOld = directionNew;
             }

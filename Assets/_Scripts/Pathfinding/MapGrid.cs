@@ -87,9 +87,15 @@ namespace TestCharactersMovement.PathfindingSystem
             int intPos_X = Mathf.RoundToInt((gridSizeX) * pos_X);
             int intPos_Y = Mathf.RoundToInt((gridSizeY) * pos_Y);
 
+#if UNITY_EDITOR
+
+            Debug.Log("X: " + intPos_X + " Y: " + intPos_Y);
+#endif
+
             return grid[intPos_X + 1, intPos_Y + 1];
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
@@ -103,6 +109,7 @@ namespace TestCharactersMovement.PathfindingSystem
                 }
             }
         }
+#endif
 
     }
 }
