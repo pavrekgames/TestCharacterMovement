@@ -26,7 +26,7 @@ namespace TestCharactersMovement.Addressables
 
         private void OnAddressableLoaded(AsyncOperationHandle<GameObject> handle)
         {
-            if(handle.Status == AsyncOperationStatus.Succeeded)
+            if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 Instantiate(handle.Result);
                 OnObjectsSpawned?.Invoke();

@@ -29,7 +29,11 @@ namespace TestCharactersMovement.SaveLoadSystem
             string fullPath = Path.Combine(dirPath, fileName);
             GameData loadedData = null;
 
+#if UNITY_EDITOR
+
             Debug.Log(fullPath);
+
+#endif
 
             if (File.Exists(fullPath))
             {
@@ -69,7 +73,7 @@ namespace TestCharactersMovement.SaveLoadSystem
 
             try
             {
-               await Task.Delay(1000);
+                await Task.Delay(1000);
 
                 Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
@@ -106,7 +110,6 @@ namespace TestCharactersMovement.SaveLoadSystem
 
             return modifiedData;
         }
-
 
     }
 }

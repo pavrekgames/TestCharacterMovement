@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TestCharactersMovement.CharactersSystem;
 using UnityEngine;
 using static TestCharactersMovement.CharactersSystem.Character;
 
@@ -14,11 +13,8 @@ namespace TestCharactersMovement.SaveLoadSystem
 
         public GameData()
         {
-           
             characters = new List<CharacterProperties>();
-
         }
-
 
     }
 }

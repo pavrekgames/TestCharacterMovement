@@ -7,17 +7,16 @@ namespace TestCharactersMovement.PathfindingSystem
 {
     public class MapGrid : MonoBehaviour
     {
+        [Header("Grid Settings")]
+        [SerializeField] private bool displayGridGizmos;
+        [SerializeField] private LayerMask unwalkableMask;
+        [SerializeField] private Vector2 gridWorldSize;
+        [SerializeField] private float nodeRadius;
 
-        public bool displayGridGizmos;
-        public LayerMask unwalkableMask;
-        public Vector2 gridWorldSize;
-        public float nodeRadius;
-        public float distanceBetweenNodes;
+        private Node[,] grid;
 
-        Node[,] grid;
-
-        float nodeDiameter;
-        int gridSizeX, gridSizeY;
+        private float nodeDiameter;
+        private int gridSizeX, gridSizeY;
 
         private void Start()
         {

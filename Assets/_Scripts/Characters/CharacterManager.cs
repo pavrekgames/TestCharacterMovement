@@ -14,7 +14,6 @@ namespace TestCharactersMovement.CharactersSystem
         [SerializeField] private Camera mainCamera;
         [SerializeField] private Vector3 screenPosition;
         [SerializeField] private Vector3 target;
-        [SerializeField] private float hitDistance = 100;
         [SerializeField] private LayerMask layerMask;
 
         private void Initialize()
@@ -54,7 +53,7 @@ namespace TestCharactersMovement.CharactersSystem
 
         private void SetTargetAndTryMove()
         {
-            if(currentCharacter != null)
+            if (currentCharacter != null)
             {
                 screenPosition = Input.mousePosition;
 
@@ -65,7 +64,7 @@ namespace TestCharactersMovement.CharactersSystem
                     target = hitInfo.point;
                     currentCharacter.FindPathToTarget(target);
                 }
-            } 
+            }
         }
 
     }

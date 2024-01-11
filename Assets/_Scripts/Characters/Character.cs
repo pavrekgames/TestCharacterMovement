@@ -137,7 +137,6 @@ namespace TestCharactersMovement.CharactersSystem
                 for (int i = targetIndex; i < path.Length; i++)
                 {
                     Gizmos.color = Color.black;
-                    //Gizmos.DrawCube(path[i], Vector3.one);
 
                     if (i == targetIndex)
                     {

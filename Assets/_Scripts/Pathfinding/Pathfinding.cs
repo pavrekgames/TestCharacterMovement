@@ -8,7 +8,7 @@ namespace TestCharactersMovement.PathfindingSystem
     public class Pathfinding : MonoBehaviour
     {
         [SerializeField] private MapGrid mapGrid;
-        public bool pathSuccess = false;
+        [SerializeField] private bool pathSuccess = false;
 
         public delegate void PathDelegate(Vector3[] wayPoints, bool isPathSuccess);
         public static PathDelegate OnPathFound;
@@ -89,6 +89,7 @@ namespace TestCharactersMovement.PathfindingSystem
                 path.Add(currentNode);
                 currentNode = currentNode.parentNode;
             }
+
             Vector3[] waypoints = SimplifyPath(path);
             Array.Reverse(waypoints);
 
