@@ -26,7 +26,6 @@ namespace TestCharactersMovement.PathfindingSystem
             gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
 
             SpawnAddressableAssets.OnObjectsSpawned += CreateGrid;
-            //CreateGrid();
         }
 
         public int MaxSize

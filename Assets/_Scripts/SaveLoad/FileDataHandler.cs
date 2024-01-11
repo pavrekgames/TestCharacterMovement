@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace TestCharactersMovement.SaveLoadSystem
 {
@@ -62,12 +63,14 @@ namespace TestCharactersMovement.SaveLoadSystem
 
         }
 
-        public void Save(GameData data)
+        public async void Save(GameData data)
         {
             string fullPath = Path.Combine(dirPath, fileName);
 
             try
             {
+               await Task.Delay(1000);
+
                 Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
                 string dataToSave = JsonUtility.ToJson(data, true);

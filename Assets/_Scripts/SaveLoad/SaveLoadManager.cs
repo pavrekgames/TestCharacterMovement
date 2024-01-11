@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TestCharactersMovement.CharactersSystem;
 using UnityEngine;
 
@@ -17,8 +18,6 @@ namespace TestCharactersMovement.SaveLoadSystem
         private GameData gameData;
         private FileDataHandler fileDataHandler;
         private List<ISaveLoadData> saveLoadDataObjects;
-
-        //[SerializeField] private List<Character> characters = new List<Character>();
 
         private void Awake()
         {
@@ -43,14 +42,13 @@ namespace TestCharactersMovement.SaveLoadSystem
 
         public void SaveGame()
         {
+
             foreach (ISaveLoadData saveLoadDataObject in saveLoadDataObjects)
             {
                 saveLoadDataObject.Save(gameData);
             }
 
             fileDataHandler.Save(gameData);
-
-            //characters = gameData.characters;
         }
 
         public void LoadGame()
@@ -72,10 +70,7 @@ namespace TestCharactersMovement.SaveLoadSystem
             return new List<ISaveLoadData>(saveLoadDataObjects);
         }
 
-
     }
-
-   
 
 }
 
