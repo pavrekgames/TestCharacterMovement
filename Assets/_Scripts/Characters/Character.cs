@@ -208,14 +208,17 @@ namespace TestCharactersMovement.CharactersSystem
 
             CharacterProperties loadedCharacter = gameData.characters.Find(x => x.characterData.characterName == characterProperties.characterData.characterName);
 
-            speed = loadedCharacter.speed;
-            agility = loadedCharacter.agility;
-            resistance = loadedCharacter.resistance;
-            position = loadedCharacter.position;
-            rotation = loadedCharacter.rotation;
+            if (loadedCharacter != null)
+            {
+                speed = loadedCharacter.speed;
+                agility = loadedCharacter.agility;
+                resistance = loadedCharacter.resistance;
+                position = loadedCharacter.position;
+                rotation = loadedCharacter.rotation;
 
-            transform.localPosition = loadedCharacter.position;
-            transform.localRotation = loadedCharacter.rotation;
+                transform.localPosition = loadedCharacter.position;
+                transform.localRotation = loadedCharacter.rotation;
+            }
 
         }
 
