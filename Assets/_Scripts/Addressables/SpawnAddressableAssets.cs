@@ -28,7 +28,6 @@ namespace TestCharactersMovement.Addressables
         {
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
-                Instantiate(handle.Result);
                 OnObjectsSpawned?.Invoke();
             }
             else
