@@ -73,7 +73,7 @@ namespace TestCharactersMovement.SaveLoadSystem
 
             try
             {
-                await Task.Delay(1000);
+                await Task.Delay(5);
 
                 Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
