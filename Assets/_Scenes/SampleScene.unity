@@ -965,7 +965,6 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   screenPosition: {x: 0, y: 0, z: 0}
   target: {x: 0, y: 0, z: 0}
-  hitDistance: 100
   layerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1447,6 +1446,7 @@ GameObject:
   - component: {fileID: 1843534984}
   - component: {fileID: 1843534985}
   - component: {fileID: 1843534986}
+  - component: {fileID: 1843534987}
   m_Layer: 0
   m_Name: PathfindingManager
   m_TagString: Untagged
@@ -1487,7 +1487,6 @@ MonoBehaviour:
     m_Bits: 64
   gridWorldSize: {x: 38.3, y: 22}
   nodeRadius: 0.5
-  distanceBetweenNodes: 0
 --- !u!114 &1843534986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1502,6 +1501,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapGrid: {fileID: 0}
   pathSuccess: 0
+--- !u!114 &1843534987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843534983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ff0adef4dc4e214da82b987e4a6c018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isProcessingPath: 0
 --- !u!1 &1900981375
 GameObject:
   m_ObjectHideFlags: 0

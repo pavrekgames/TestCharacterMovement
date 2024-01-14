@@ -24,7 +24,7 @@ namespace TestCharactersMovement.CharactersSystem
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if(!isActive)
+            if (!isActive)
             {
                 characterImage.color = hoverColor;
             }

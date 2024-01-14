@@ -8,14 +8,18 @@ namespace TestCharactersMovement.PathfindingSystem
     public class Pathfinding : MonoBehaviour
     {
         [SerializeField] private MapGrid mapGrid;
+        [SerializeField] private PathRequestManager pathRequestManager;
         [SerializeField] private bool pathSuccess = false;
-
-        public delegate void PathDelegate(Vector3[] wayPoints, bool isPathSuccess);
-        public static PathDelegate OnPathFound;
 
         private void Awake()
         {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             mapGrid = FindFirstObjectByType<MapGrid>();
+            pathRequestManager = FindFirstObjectByType<PathRequestManager>();
         }
 
         public void FindPath(Vector3 startPos, Vector3 targetPos)
@@ -76,7 +80,7 @@ namespace TestCharactersMovement.PathfindingSystem
                 waypoints = RetracePath(startNode, targetNode);
             }
 
-            OnPathFound?.Invoke(waypoints, pathSuccess);
+            pathRequestManager.FinishedProcessingPath(waypoints, pathSuccess);
         }
 
         private Vector3[] RetracePath(Node startNode, Node endNode)

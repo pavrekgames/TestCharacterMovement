@@ -26,6 +26,7 @@ namespace TestCharactersMovement.CharactersSystem
             Initialize();
 
             CharacterHUD.OnCharacterSelected += SelectCharacter;
+            Character.OnCharacterLoaded += FindPathForCharacters;
         }
 
         private void Update()
@@ -51,6 +52,17 @@ namespace TestCharactersMovement.CharactersSystem
             }
         }
 
+        private void FindPathForCharacters()
+        {
+            if (target != Vector3.zero)
+            {
+                foreach (Character character in allCharacters)
+                {
+                    character.FindPathToTarget(target);
+                }
+            }
+        }
+
         private void SetTargetAndTryMove()
         {
             if (currentCharacter != null)
@@ -62,7 +74,7 @@ namespace TestCharactersMovement.CharactersSystem
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, layerMask))
                 {
                     target = hitInfo.point;
-                    currentCharacter.FindPathToTarget(target);
+                    FindPathForCharacters();
                 }
             }
         }

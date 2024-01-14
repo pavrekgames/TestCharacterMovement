@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TestCharactersMovement.PathfindingSystem;
@@ -22,13 +23,14 @@ namespace TestCharactersMovement.CharactersSystem
         public Quaternion rotation;
 
         [Header("Pathfinding")]
-        [SerializeField] private Pathfinding pathfinding;
         [SerializeField] private Vector3[] path;
         [SerializeField] private int targetIndex;
         private Coroutine FollowPath_IE;
 
         [Header("Savings Data")]
         [HideInInspector] public CharacterProperties characterProperties;
+
+        public static event Action OnCharacterLoaded;
 
         [System.Serializable]
         public class CharacterProperties
@@ -44,7 +46,6 @@ namespace TestCharactersMovement.CharactersSystem
         protected virtual void Initialize()
         {
             animator = GetComponent<Animator>();
-            pathfinding = FindFirstObjectByType<Pathfinding>();
             characterProperties.characterData = characterData;
         }
 
@@ -52,25 +53,23 @@ namespace TestCharactersMovement.CharactersSystem
         {
             Initialize();
             SetRandomFactors();
-
-            Pathfinding.OnPathFound += OnPathFound;
         }
 
         protected void SetRandomFactors()
         {
-            speed = Random.Range(3, 7);
-            agility = Random.Range(3, 7);
-            resistance = Random.Range(1, 5);
+            speed = UnityEngine.Random.Range(3, 7);
+            agility = UnityEngine.Random.Range(3, 7);
+            resistance = UnityEngine.Random.Range(1, 5);
         }
 
         #region Following Path
 
         public virtual void FindPathToTarget(Vector3 target)
         {
-            pathfinding.FindPath(transform.position, target);
+            PathRequestManager.RequestPath(transform.position, target, OnPathFound);
         }
 
-        private void OnPathFound(Vector3[] newPath, bool isPathSuccessful)
+        protected virtual void OnPathFound(Vector3[] newPath, bool isPathSuccessful)
         {
             if (isPathSuccessful)
             {
@@ -81,7 +80,7 @@ namespace TestCharactersMovement.CharactersSystem
             }
         }
 
-        private void Move()
+        protected virtual void Move()
         {
             if (FollowPath_IE != null)
             {
@@ -91,7 +90,7 @@ namespace TestCharactersMovement.CharactersSystem
             FollowPath_IE = StartCoroutine(FollowPath());
         }
 
-        private IEnumerator FollowPath()
+        protected IEnumerator FollowPath()
         {
             if (!isSelected)
             {
@@ -123,7 +122,6 @@ namespace TestCharactersMovement.CharactersSystem
             }
 
             FollowAnimation(false);
-
         }
 
         #endregion
@@ -218,6 +216,8 @@ namespace TestCharactersMovement.CharactersSystem
 
                 transform.localPosition = loadedCharacter.position;
                 transform.localRotation = loadedCharacter.rotation;
+
+                OnCharacterLoaded?.Invoke();
             }
 
         }
