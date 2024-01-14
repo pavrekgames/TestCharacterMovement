@@ -1500,6 +1500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapGrid: {fileID: 0}
+  pathRequestManager: {fileID: 0}
   pathSuccess: 0
 --- !u!114 &1843534987
 MonoBehaviour:
@@ -2055,7 +2056,8 @@ PrefabInstance:
       propertyPath: characterHUD
       value: 
       objectReference: {fileID: 1674022758}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8057731718529320602, guid: 227c16989b6404146ab1eadeb285b6cc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

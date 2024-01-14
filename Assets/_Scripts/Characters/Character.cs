@@ -28,11 +28,11 @@ namespace TestCharactersMovement.CharactersSystem
         private Coroutine FollowPath_IE;
 
         [Header("Savings Data")]
-        [HideInInspector] public CharacterProperties characterProperties;
+        public CharacterProperties characterProperties;
 
         public static event Action OnCharacterLoaded;
 
-        [System.Serializable]
+        [Serializable]
         public class CharacterProperties
         {
             public CharacterData characterData;
@@ -76,18 +76,23 @@ namespace TestCharactersMovement.CharactersSystem
                 path = newPath;
                 targetIndex = 0;
 
+                StopMove();
                 Move();
             }
         }
 
         protected virtual void Move()
         {
+            FollowPath_IE = StartCoroutine(FollowPath());
+        }
+
+        protected virtual void StopMove()
+        {
             if (FollowPath_IE != null)
             {
+                FollowAnimation(false);
                 StopCoroutine(FollowPath_IE);
             }
-
-            FollowPath_IE = StartCoroutine(FollowPath());
         }
 
         protected IEnumerator FollowPath()
@@ -217,6 +222,8 @@ namespace TestCharactersMovement.CharactersSystem
                 transform.localPosition = loadedCharacter.position;
                 transform.localRotation = loadedCharacter.rotation;
 
+                path = null;
+                StopMove();
                 OnCharacterLoaded?.Invoke();
             }
 

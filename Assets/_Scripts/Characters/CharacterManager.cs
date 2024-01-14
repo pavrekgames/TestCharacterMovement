@@ -26,7 +26,7 @@ namespace TestCharactersMovement.CharactersSystem
             Initialize();
 
             CharacterHUD.OnCharacterSelected += SelectCharacter;
-            Character.OnCharacterLoaded += FindPathForCharacters;
+            //Character.OnCharacterLoaded += FindPathForCharacters;
         }
 
         private void Update()
